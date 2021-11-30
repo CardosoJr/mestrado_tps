@@ -543,6 +543,53 @@ class VotedPerceptron(BaseEstimator, ClassifierMixin):
                              + " this function.")
 
 
+class Perceptron(BaseEstimator, ClassifierMixin):
+
+    def __init__(self, tol, epochs, learning_rate):
+        self.tol = tol
+        self.epochs = epochs
+        self.learning_rate = learning_rate
+
+    def get_params(self, deep = False):
+        return {
+                    "tol" : self.tol,
+                    "epochs" : self.epochs,
+                    "learning_rate" : self.learning_rate
+        }
+
+    def set_params(self, **parameters):
+        for parameter, value in parameters.items():
+            setattr(self, parameter, value)
+        return self
+
+    def fit (self, X, y):
+        X_train = np.insert(X, 0, -1, axis=1)
+
+        err = self.tol + 0.0001
+        err_array = []
+        epoch = 0
+        wt = np.random.uniform(size = X_train.shape[1])
+
+        while err > self.tol and epoch < self.epochs:
+            err_ds = 0
+            for i, x_i in enumerate(X_train):
+                y_hat =  1.0 * (np.dot(wt, x_i) >= 0)
+                ei = y[i] - y_hat
+                dw = self.learning_rate * ei * x_i
+                wt = wt + dw
+                err_ds += ei ** 2
+            err = err_ds / len(X_train)
+            err_array.append(err)
+            epoch += 1
+
+        return wt, epoch, err_array
+
+
+    def predict(self, X):
+        X_train = np.insert(X, 0, -1, axis=1)
+        y_pred = 1.0 * (np.dot(X_train, self.wt) >= 0)
+        return y_pred
+
 def parse_dataset_control(file_name):
     data = pd.read_csv(file_name, header = None)
     labels = ['normal'] * 100 + ['cyclic'] * 100 + ['increasing'] * 100 + ['decreasing'] * 100 + ['upward_shift'] * 100 + ['downward_shift'] * 100
