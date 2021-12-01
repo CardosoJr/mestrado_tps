@@ -262,7 +262,7 @@ class VotedPerceptron(BaseEstimator, ClassifierMixin):
                                   if len(self.prediction_vector_votes) > 0
                                   else 0)
 
-        for _ in tqdm(range(self.max_epochs)):
+        for _ in range(self.max_epochs):
             num_epoch_errors = 0
             for training_case, training_label in zip(data, labels_changed):
                 pre_activation = sum(pvtc * self.kernel(pvt, training_case)
