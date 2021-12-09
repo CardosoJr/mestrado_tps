@@ -1,3 +1,4 @@
+from re import escape
 import pandas as pd
 import numpy as np 
 import seaborn as sns 
@@ -18,6 +19,7 @@ from sklearn import model_selection
 from sklearn.preprocessing import StandardScaler
 from pathlib import Path
 import tensorflow as tf
+from scipy.linalg import pinv2
 
 import math
 
@@ -80,3 +82,62 @@ def adaline_predict(X, wt):
     y_pred = np.dot(X_train, wt)
     return y_pred
 
+
+def elm_train(X, y, hidden_dim = 1000):
+    X_train = np.insert(X, 0, 1, axis=1)
+    X_train, y_train = shuffle(X_train, y)    
+    Z = np.random.normal(size = [X_train.shape[1], hidden_dim])
+    H = np.tanh(np.dot(X_train, Z))
+    W = np.dot(pinv2(H), y_train)
+    return W, Z
+
+def elm_predict(X, Z, W):
+    X_test = np.insert(X, 0, 1, axis=1)
+    H = np.tanh(np.dot(X_test, Z))
+    Yhat = np.sign(np.dot(H, W))
+    return Yhat
+
+def radial_function(x, m, r):
+    return np.exp(-0.5 * np.matmul((x-m).T, (x-m)) / (r **2))
+
+def elm_rbf_train(X, y, hidden_dim = 10):
+    X_train = np.insert(X, 0, 1, axis=1)
+    X_train, y_train = shuffle(X_train, y) 
+    Z = np.random.normal(size = [hidden_dim, X_train.shape[1]]) @ np.cov(X_train, rowvar = False) + np.mean(X_train, axis = 0)
+    dists = np.sqrt(((Z[:,None,:] - Z)**2).sum(axis=2))
+    r = np.mean(dists[np.triu_indices(dists.shape[0], k = 1)])  
+    H = np.zeros([X_train.shape[0], hidden_dim])
+    for i in range(X_train.shape[0]):
+        for j in range(hidden_dim):
+            val = radial_function(X_train[i], Z[j,:], r)
+            H[i,j] = val
+
+    W = np.dot(pinv2(H), y_train)
+    return W, Z, r
+
+from sklearn.cluster import KMeans
+
+def kmeans_rbf_train(X, y, hidden_dim = 10):
+    X_train = np.insert(X, 0, 1, axis=1)
+    X_train, y_train = shuffle(X_train, y)
+    Z = KMeans(n_clusters = hidden_dim).fit(X_train).cluster_centers_
+    dists = np.sqrt(((Z[:,None,:] - Z)**2).sum(axis=2))
+    r = np.mean(dists[np.triu_indices(dists.shape[0], k = 1)]) 
+    H = np.zeros([X_train.shape[0], hidden_dim])
+    for i in range(X_train.shape[0]):
+        for j in range(hidden_dim):
+            H[i,j] = radial_function(X_train[i], Z[j,:], r)
+
+    W = np.dot(pinv2(H), y_train)
+    return W, Z, r
+
+def elm_rbf_predict(X, Z, W, r):
+    X_test = np.insert(X, 0, 1, axis=1)
+    hidden_dim = Z.shape[0]
+    H = np.zeros([X_test.shape[0], hidden_dim])
+    for i in range(X_test.shape[0]):
+        for j in range(hidden_dim):
+            H[i,j] = radial_function(X_test[i], Z[j,:], r)
+
+    Yhat = np.sign(np.dot(H, W))
+    return Yhat
