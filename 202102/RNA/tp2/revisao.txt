@@ -1,0 +1,167 @@
+A Comparative Evaluation of Sequential Feature Selection Algorithms
+
+    1. Search algorithm This searches the space of feature subsets, which has size 2d  where d is the number of features.
+    2. Evaluation function This inputs a feature subset and outputs a numeric evaluation. The search algorithm's goal is to maximize this function.
+    3. Performance function The performance task studied in this paper is classifcation. Given the subset found to perform best by the evaluation function, the classifierr is used to classify instances in the dataset.
+
+    Exponential algorithms (e.g., branch and bound, exhaustive) have exponential complexity in
+    the number of features and are frequently prohibitively expensive to use (i.e., they have complexity O(2d), where d is the number of features). Randomized algorithms include genetic and simulated
+    annealing search methods. These algorithms attain high accuracies (Doak, 1992; Vafaie & De Jong,  1993; Skalak, 1994), but they require biases to yield small subsets.
+
+    Sequential search algorithms have polynomial complexity (i.e., O(d  )); they add  or subtract features and use a hill-climbing search strategy
+
+    use of IB1 / KNN evaluation 
+
+    use Calinski-Harabasz index as the evaluation function
+
+    Our selection of these two evaluation functions was motivated by the hypothesis that wrapper models, which use the classer itself as the evaluation function, outperform
+    filter models, which do not. This was conjectured by John, Kohavi, and Peger (1994). Doak (1992)  cited some informal evidence for this conjecture but did not describe a detailed analysis.
+
+
+
+Feature selection using swarm-based relative reduct technique for fetal heart rate
+
+    -> Application of rough set theory to feature selection for unsupervised clustering   
+
+    Particle Swarm Optimization 
+    utiliza como fitness The unsupervised relative dependency measure for a particular particle is defined as follows
+
+
+An Improved BPSO Algorithm for Feature Selection 
+
+    binary particle swarm Optimization
+    moth flame optimization 
+
+    binary => 1 feature | 0 no feature 
+
+    initialization =>  generate 2n and keep n (k-means ??) 
+
+    -> Silhouette index as fitness function => Kaufman and Rousseeuw [15] which is a measure of how similar an object is to its own cluster (cohesion) compared to other clusters (separation).
+    -> Dunn index DI introduced by J. C. Dunn in 1974 [16] assesses the goodness of a clustering by measuring the maximal diameter of clusters and relating it to the minimal distance between clusters. 
+        The DI is the division of minimum inter-cluster distance and the maximum cluster size
+    -> Davies-bouldin DBI is introduced by David L. Davies and Donald W. Bouldin in 1979 [17] by which quality of clustering is measured
+
+
+Improving BPSO-based feature selection applied to offline WI handwriten signature verification through overftting control
+
+    We propose to use a BPSO-based feature selection for WI-HSV in a wrapper mode. The optimization is conducted based on the minimization of the Equal Error Rate (EER) of the SVM in a wrapper mode. 
+    The user threshold (considering just the genuine signatures and the skilled forgeries) was employed [5].
+
+    In the feature selection scenario, overfitting occurs when the optimized feature set memorizes the training set instead of producing a general model. To decrease the chance of overfitting, a validation
+    procedure can be used during the optimization process in order to select solutions with good generalization power.
+
+    -> An Evaluation of Over-Fit Control Strategies for Multi-Objective Evolutionary Optimization
+    -> A white-box analysis on the writer-independent dichotomy transformation applied to offline handwritten signature verification
+
+
+Automatic Feature Selection for BCI: an Analysis using the Davies-Bouldin Index and Extreme Learning Machines
+
+    Davies-Bouldin index => it combines in a single index two measures, one related to the dispersion of individual clusters and the other to the separation between different clusters
+    mean-squared error (MSE) of an extreme learning machine (ELM) classifier
+
+
+Feature Selection via Correlation Coefficient Clustering
+
+    The wrapper mode feature selection model could be helpful [2]. However, it is usually very time consuming, because it combines some learning machines which are the core of selecting features [3][4].
+
+    -> Wrappers for Feature Subset Selection,
+
+    There are several measures which are helpful in finding the redundant features. For example, mutual information, correlation coefficient, and chi-square can be used to find the dependency between two features. 
+
+    cluster features (dataset transpose)
+    Using correlation coeff instead of euclidean distance 
+
+
+A new hybrid filter–wrapper feature selection method for clustering based on ranking
+
+    effective univariate unsupervised filter methods of the state-of-the-art belong to one of the following categories: SVDEntropy-based methods [25,27–29], Graph-based feature selection
+    methods [30–33], and Similarity-Entropy-based methods [34–36]. Meanwhile, multivariate filter approaches [17,19,37–39] assume that dependent features should be discarded, being independent features, 
+    among each other, those with the highest relevance
+
+    Gene selection for microarray data classification using a novel ant colony optimization, Neurocomputing
+
+    A dendrite method for cluster analysis - CH index
+
+Feature Selection using Clustering approach for Big Data
+    filter method unsupervised MST from correlations 
+
+SILHOUETE
+
+    The silhouette coefficient [64] is used when the model should be evaluated by itself
+    and without any ground truth labels, and a model with well-defined clusters will have a
+    higher silhouette coefficient. The silhouette coefficient is:
+
+CALINKSY-HARABASZ
+
+    The Calinski–Harabasz index [65] assesses a clustering based on the mean between
+    and inside cluster sum of squares, and a model with better defined clusters will have a
+    higher Calinski–Harabasz index. For a set of data E of size nE which has been clustered
+    into k clusters, the Calinski–Harabasz index is defined as the ratio of the between-clusters
+    dispersion (the sum of distances squared) mean and the within-clusters dispersion:
+
+    where tr(Bk) is the trace of the between cluster dispersion matrix, tr(Wk) is the trace of
+    the within-group dispersion matrix, E is a set of data, nE is the size of data, and k is the number of clusters
+
+DAVIES-BOULDIN
+
+    where Dij is the ratio of the “within-to-between cluster distance” of the ith and jth clusters.
+    For each cluster, we essentially compute the worst case ratio (Dij) of a within-to-between
+    cluster distance between it and any other cluster, and then take the average. Thus, by
+    minimizing this index, we can make sure that clusters are the most separate from each
+    other. Hence the DB index is smaller when the clustering result is better.
+
+
+Genetic algorithm and fuzzy C-means for feature selection: Based on a dual fitness function
+
+    unsupervised selection based on two indices and fuzzy c-means 
+
+    maioria usa weighted sum para mais de um objetivo 
+
+    Davies-bouldin and Calinsky harabasz with MOO GA 
+
+    Fuzzy c-means
+
+Feature selection and semi-supervised clustering using multiobjective optimization
+
+    Point symmetry based distance (Bandyopadhyay and Saha  2007)  AS distance 
+    multiobjective Simulated Annealing 
+
+
+Unsupervised feature selection using multi-objective genetic algorithms for handwritten word recognition
+
+    -> NSGA II -> Davies BOulding + N# Features 
+
+
+Feature Selection Model Based on Clustering and Ranking in Pipeline for Microarray Data ***********
+    Attribute clustering and filtering 
+
+    wrapped methods 
+
+    classification is voting of multiple methods 
+
+    GA + BPSO + ACO with 1-NN as learning algorithm (interesting!!!)
+
+
+Silhouette-based feature selection for classification of medical images ***********
+    
+    using GAs
+
+    Kudo and Sklansky in [9] presented a comparative study of searching techniques for FS problems. It was observed that: GA sometimes found better solutions that sequential forward and sequential backward searches (SFS and SBF)
+
+    Feature selection for cluster analysis: an approach based on the simplified silhouette criterion proposed an unsupervised wrapper FS algorithm that uses the simplified silhouette statistic as an evaluation function
+
+    FAZ EXATAMENTE O QUE EU QUERO FAZER => PORÉM MINHA VERSÃO É MELHORADA (TESTAR OUTROS INDICADORES E TAMBÉM MOO)
+
+
+Feature selection using genetic algorithm and cluster validation
+    Hybrid Taguchi-Genetic Algorithm
+
+    Instead of using the direct retrieval accuracy, which is expensive to compute, to select better offsprings in every generations
+    of the HTGA, we propose to use the Hubert’s C statistic, which estimates the cluster validity, as the fitness measure to select better offspring.
+    
+
+Clustering-based Feature Selection in Semi-supervised Problems
+
+A Clustering Based Genetic Algorithm for  Selection
+    feature clustering Feature
+    GA with local search operation 
